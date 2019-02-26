@@ -19,7 +19,7 @@ pipeline {
       steps {
           
           sh 'terraform init'
-          sh 'terraform plan -out myplan'
+          sh 'terraform plan -out=myplan'
       }      
     }
 
