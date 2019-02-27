@@ -19,7 +19,7 @@ pipeline {
       steps {
           
           sh 'terraform init'
-          sh 'terraform plan'
+          sh 'terraform plan -out myplan'
       }      
     }
 
@@ -33,8 +33,7 @@ pipeline {
 
     stage('TF Apply') {
       steps {
-          sh 'terraform apply'
-          sh 'yes'
+          sh 'terraform apply -input=false myplan'
       }
     }
 
