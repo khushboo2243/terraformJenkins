@@ -11,7 +11,6 @@ provider "oci" {
   fingerprint = "${var.fingerprint}"
   private_key_path = "${var.private_key_path}"
   region = "${var.region}"
-  
 }
 resource "oci_core_virtual_network" "VCN" {
   cidr_block = "10.0.0.0/16"
