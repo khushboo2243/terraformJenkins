@@ -1,2 +1,2 @@
 # terraformJenkins
-Deploying active data guard using terraform with Jenkins
+Deploying a network architecutre on OCI using terraform with Jenkins
