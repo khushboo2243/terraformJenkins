@@ -20,4 +20,9 @@ resource "oci_core_virtual_network" "VCN" {
 }
 
 
-
+resource "oci_core_internet_gateway" "IGW" {
+ compartment_id = "${var.compartment_ocid}"
+ display_name   = "IGW"
+ enabled        = true
+ vcn_id         = "${oci_core_virtual_network.VCN.id}"
+}
