@@ -48,4 +48,16 @@ resource "oci_core_route_table" "RouteTable" {
     destination = "0.0.0.0/0"
     protocol    = "6"
   }
+    // allow outbound udp traffic on a port range
+  egress_security_rules {
+    destination = "0.0.0.0/0"
+    protocol    = "17"        // udp
+    stateless   = true
+
+    udp_options {
+      // These values correspond to the destination port range.
+      "min" = 319
+      "max" = 320
+    }
+  }
     }
