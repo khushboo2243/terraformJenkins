@@ -60,4 +60,22 @@ resource "oci_core_route_table" "RouteTable" {
       "max" = 320
     }
   }
+    
+    // allow inbound ssh traffic from a specific port
+  ingress_security_rules {
+    protocol  = "6"         // tcp
+    source    = "0.0.0.0/0"
+    stateless = false
+
+    tcp_options {
+      source_port_range {
+        "min" = 100
+        "max" = 100
+      }
+
+      // These values correspond to the destination port range.
+      "min" = 22
+      "max" = 22
+    }
+  }
     }
