@@ -89,3 +89,4 @@ resource "oci_core_route_table" "RouteTable" {
   }
   }
     }
+  }
