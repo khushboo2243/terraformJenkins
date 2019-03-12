@@ -35,5 +35,6 @@ resource "oci_core_route_table" "RouteTable" {
     destination_type  = "CIDR_BLOCK"
     network_entity_id = "${oci_core_internet_gateway.IGW.id}"
   }
-
-
+  
+  
+  }
