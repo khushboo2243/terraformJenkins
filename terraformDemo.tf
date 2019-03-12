@@ -78,4 +78,15 @@ resource "oci_core_route_table" "RouteTable" {
       "max" = 22
     }
   }
+    // allow inbound icmp traffic of a specific type
+  ingress_security_rules {
+    protocol  = 1
+    source    = "0.0.0.0/0"
+    stateless = true
+
+    icmp_options {
+      "type" = 3
+      "code" = 4
+    }
+  }
     }
