@@ -42,5 +42,10 @@ resource "oci_core_route_table" "RouteTable" {
   vcn_id         = "${oci_core_virtual_network.VCN.id}"
   display_name   = "SecurityList"
 
+    
+    // allow outbound tcp traffic on all ports
+  egress_security_rules {
+    destination = "0.0.0.0/0"
+    protocol    = "6"
+  }
     }
-  
