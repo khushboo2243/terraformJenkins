@@ -40,7 +40,7 @@ resource "oci_core_route_table" "RouteTable" {
   resource "oci_core_security_list" "SecurityList" {
   compartment_id = "${var.compartment_ocid}"
   vcn_id         = "${oci_core_virtual_network.VCN.id}"
-  display_name   = "SecurityList"
+  display_name   = "PublicSubnetSecurityList"
 
     
     // allow outbound tcp traffic on all ports
@@ -90,3 +90,21 @@ resource "oci_core_route_table" "RouteTable" {
     }
   }
     }
+
+
+//add public subnet
+
+resource "oci_core_subnet" "PublicSubnet" {
+  availability_domain        = "ToGS:US-ASHBURN-AD-1"
+  cidr_block                 = "10.0.0.0/24"
+  compartment_id             = "${var.compartment_ocid}"
+  display_name               = "PublicSubnet"
+  dns_label                  = "PublicDNS"
+  vcn_id                     = "${oci_core_virtual_network.VCN.id}"
+  prohibit_public_ip_on_vnic = false
+  route_table_id             = "${oci_core_route_table.PublicSubnetRT.id}"
+
+  security_list_ids = [
+    "${oci_core_security_list.SecurityList.id}",
+  ]
+}
