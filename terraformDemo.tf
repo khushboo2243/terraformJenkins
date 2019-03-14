@@ -133,3 +133,25 @@ resource "oci_core_instance" "Instance" {
     assign_public_ip = true
   }
 }
+
+//add nat gateway
+
+resource "oci_core_nat_gateway" "nat_gateway" {
+  compartment_id = "${var.compartment_ocid}"
+  vcn_id         = "${oci_core_virtual_network.VCN.id}"
+  display_name   = "nat_gateway"
+}
+
+//add route table for private subnet
+resource "oci_core_route_table" "PrivateSubnetRT" {
+  compartment_id = "${var.compartment_ocid}"
+  display_name   = "PrivateRouteTable"
+  vcn_id         = "${oci_core_virtual_network.VCN.id}"
+
+  route_rules {
+    destination       = "0.0.0.0/0"
+    network_entity_id = "${oci_core_nat_gateway.nat_gateway.id}"
+  }
+}
+  
+ //
