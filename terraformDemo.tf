@@ -200,3 +200,28 @@ resource "oci_core_security_list" "PrivateDB2SecurityList" {
     "${oci_core_security_list.PrivateDB2SecurityList.id}" ,
   ]
 }
+
+   //adding database instance
+   
+   resource "oci_core_instance" "DBInstance" {
+  availability_domain = "LPEH:US-ASHBURN-AD-1"
+  compartment_id      = "${var.compartment_ocid}"
+
+  source_details {
+    source_id   = "ocid1.image.oc1.iad.aaaaaaaageeenzyuxgia726xur4ztaoxbxyjlxogdhreu3ngfj2gji3bayda"
+    source_type = "image"
+  }
+
+  shape = "VM.Standard.E2.2"
+
+  metadata {
+    ssh_authorized_keys = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGP56kfnzmdyLahAjF3W2mQhxA24Si7E5So8ZvSL5tTdNRiowKhv3wOUIwKW8YsNBFi/S7UZyrpIEC27jK+oFfZlysbOWY4ovZsIQ7GZxTjNrmIq38GvU+qeDY3X2Hlb3vFPvRVHJlGVOO06MQCH4xWADTxrf7DE0OXozz2U8wOt6x6OyrFy6sYrxnBDCaLy5i4z/2gKx2yJXYLb8C2LT2NVwf1mgaxjWVPV6Z6TLBOVFhmzaRnQkl7N1QMQWSdW2NI2kqC0CV0mm3q0ZkiDo7J6njYzMdc5qNZdiSy4ElHOp78f9SfB85gGpnXPjJBYpz/ywUjgjYKvQ9TyggvQdB"
+  }
+
+  display_name = "DBInstance"
+
+  create_vnic_details {
+    subnet_id        = "${oci_core_subnet.PrivateSubnet.id}"
+    assign_public_ip = false
+  }
+}
