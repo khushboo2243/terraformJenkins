@@ -95,7 +95,7 @@ resource "oci_core_route_table" "RouteTable" {
 //add public subnet
 
 resource "oci_core_subnet" "PublicSubnet" {
-  availability_domain        = "ToGS:US-ASHBURN-AD-1"
+  availability_domain        = "LPEH:US-ASHBURN-AD-1"
   cidr_block                 = "10.0.0.0/24"
   compartment_id             = "${var.compartment_ocid}"
   display_name               = "PublicSubnet"
