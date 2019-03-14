@@ -197,7 +197,7 @@ resource "oci_core_security_list" "PrivateDB2SecurityList" {
   route_table_id             = "${oci_core_route_table.PrivateSubnetRT.id}"
 
   security_list_ids = [
-resource "oci_core_security_list" "PrivateDB2SecurityList" {
-    "${oci_core_security_list..id}"}
+resource "oci_core_security_list" "PrivateDB2SecurityList" 
+    "${oci_core_security_list..id}",
   ]
 }
