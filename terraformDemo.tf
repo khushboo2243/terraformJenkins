@@ -198,6 +198,6 @@ resource "oci_core_security_list" "PrivateDB2SecurityList" {
 
   security_list_ids = [
 resource "oci_core_security_list" "PrivateDB2SecurityList" {
-    "${oci_core_security_list..id}",
+    "${oci_core_security_list..id}"}
   ]
 }
