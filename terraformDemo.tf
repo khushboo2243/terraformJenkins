@@ -28,7 +28,7 @@ resource "oci_core_internet_gateway" "IGW" {
 resource "oci_core_route_table" "RouteTable" {
   compartment_id = "${var.compartment_ocid}"
   vcn_id         = "${oci_core_virtual_network.VCN.id}"
-  display_name   = "RouteTable"
+  display_name   = "PublicRouteTable"
 
   route_rules {
     destination       = "0.0.0.0/0"
@@ -102,7 +102,7 @@ resource "oci_core_subnet" "PublicSubnet" {
   dns_label                  = "PublicDNS"
   vcn_id                     = "${oci_core_virtual_network.VCN.id}"
   prohibit_public_ip_on_vnic = false
-  route_table_id             = "${oci_core_route_table.PublicSubnetRT.id}"
+  route_table_id             = "${oci_core_route_table.RouteTable.id}"
 
   security_list_ids = [
     "${oci_core_security_list.SecurityList.id}",
