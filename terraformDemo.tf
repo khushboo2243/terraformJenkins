@@ -183,3 +183,21 @@ resource "oci_core_security_list" "PrivateDB2SecurityList" {
     
   ]
 }
+   
+   //add db instance
+   
+   resource "oci_core_subnet" "PrivateSubnet" {
+  availability_domain        = "ToGS:US-ASHBURN-AD-1"
+  cidr_block                 = "10.0.1.0/24"
+  compartment_id             = "${var.compartment_ocid}"
+  display_name               = "PrivateSubnet"
+  dns_label                  = "PrivateDNS"
+  vcn_id                     = "${oci_core_virtual_network.VCN.id}"
+  prohibit_public_ip_on_vnic = true
+  route_table_id             = "${oci_core_route_table.PrivateSubnetRT.id}"
+
+  security_list_ids = [
+resource "oci_core_security_list" "PrivateDB2SecurityList" {
+    "${oci_core_security_list..id}",
+  ]
+}
