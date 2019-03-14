@@ -196,8 +196,7 @@ resource "oci_core_security_list" "PrivateDB2SecurityList" {
   prohibit_public_ip_on_vnic = true
   route_table_id             = "${oci_core_route_table.PrivateSubnetRT.id}"
 
-  security_list_ids = [
-resource "oci_core_security_list" "PrivateDB2SecurityList" 
-    "${oci_core_security_list..id}",
+  security_list_ids = [ 
+    "${oci_core_security_list.PrivateDB2SecurityList.id}" ,
   ]
 }
