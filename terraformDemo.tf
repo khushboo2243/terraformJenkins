@@ -187,7 +187,7 @@ resource "oci_core_security_list" "PrivateDB2SecurityList" {
    //add db instance
    
    resource "oci_core_subnet" "PrivateSubnet" {
-  availability_domain        = "ToGS:US-ASHBURN-AD-1"
+  availability_domain        = "LPEH:US-ASHBURN-AD-1"
   cidr_block                 = "10.0.1.0/24"
   compartment_id             = "${var.compartment_ocid}"
   display_name               = "PrivateSubnet"
