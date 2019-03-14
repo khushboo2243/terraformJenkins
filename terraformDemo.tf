@@ -154,4 +154,32 @@ resource "oci_core_route_table" "PrivateSubnetRT" {
   }
 }
   
- //
+ //adding security list for private subnet
+resource "oci_core_security_list" "PrivateDB2SecurityList" {
+  compartment_id = "${var.compartment_ocid}"
+  display_name   = "PrivateSubnetSecurityList"
+  vcn_id         = "${oci_core_virtual_network.VCN.id}"
+
+  ingress_security_rules = [
+    {
+      protocol    = "6"
+      source      = "10.0.0.0/24"
+      source_type = "CIDR_BLOCK"
+
+      tcp_options {
+        min = 22
+        max = 22
+      }
+    }
+    
+  ]
+
+  egress_security_rules = [
+    {
+      destination      = "0.0.0.0/0"
+      destination_type = "CIDR_BLOCK"
+      protocol         = "all"
+    }
+    
+  ]
+}
