@@ -134,94 +134,94 @@ resource "oci_core_instance" "Instance" {
   }
 }
 
-# //add nat gateway
+//add nat gateway
 
-# resource "oci_core_nat_gateway" "nat_gateway" {
-#   compartment_id = "${var.compartment_ocid}"
-#   vcn_id         = "${oci_core_virtual_network.VCN.id}"
-#   display_name   = "nat_gateway"
-# }
+resource "oci_core_nat_gateway" "nat_gateway" {
+  compartment_id = "${var.compartment_ocid}"
+  vcn_id         = "${oci_core_virtual_network.VCN.id}"
+  display_name   = "nat_gateway"
+}
 
-# //add route table for private subnet
-# resource "oci_core_route_table" "PrivateSubnetRT" {
-#   compartment_id = "${var.compartment_ocid}"
-#   display_name   = "PrivateRouteTable"
-#   vcn_id         = "${oci_core_virtual_network.VCN.id}"
+//add route table for private subnet
+resource "oci_core_route_table" "PrivateSubnetRT" {
+  compartment_id = "${var.compartment_ocid}"
+  display_name   = "PrivateRouteTable"
+  vcn_id         = "${oci_core_virtual_network.VCN.id}"
 
-#   route_rules {
-#     destination       = "0.0.0.0/0"
-#     network_entity_id = "${oci_core_nat_gateway.nat_gateway.id}"
-#   }
-# }
+  route_rules {
+    destination       = "0.0.0.0/0"
+    network_entity_id = "${oci_core_nat_gateway.nat_gateway.id}"
+  }
+}
   
-#  //adding security list for private subnet
-# resource "oci_core_security_list" "PrivateDB2SecurityList" {
-#   compartment_id = "${var.compartment_ocid}"
-#   display_name   = "PrivateSubnetSecurityList"
-#   vcn_id         = "${oci_core_virtual_network.VCN.id}"
+ //adding security list for private subnet
+resource "oci_core_security_list" "PrivateDB2SecurityList" {
+  compartment_id = "${var.compartment_ocid}"
+  display_name   = "PrivateSubnetSecurityList"
+  vcn_id         = "${oci_core_virtual_network.VCN.id}"
 
-#   ingress_security_rules = [
-#     {
-#       protocol    = "6"
-#       source      = "10.0.0.0/24"
-#       source_type = "CIDR_BLOCK"
+  ingress_security_rules = [
+    {
+      protocol    = "6"
+      source      = "10.0.0.0/24"
+      source_type = "CIDR_BLOCK"
 
-#       tcp_options {
-#         min = 22
-#         max = 22
-#       }
-#     }
+      tcp_options {
+        min = 22
+        max = 22
+      }
+    }
     
-#   ]
+  ]
 
-#   egress_security_rules = [
-#     {
-#       destination      = "0.0.0.0/0"
-#       destination_type = "CIDR_BLOCK"
-#       protocol         = "all"
-#     }
+  egress_security_rules = [
+    {
+      destination      = "0.0.0.0/0"
+      destination_type = "CIDR_BLOCK"
+      protocol         = "all"
+    }
     
-#   ]
-# }
+  ]
+}
    
-#    //add db instance
+   //add db instance
    
-#    resource "oci_core_subnet" "PrivateSubnet" {
-#   availability_domain        = "LPEH:US-ASHBURN-AD-1"
-#   cidr_block                 = "10.0.1.0/24"
-#   compartment_id             = "${var.compartment_ocid}"
-#   display_name               = "PrivateSubnet"
-#   dns_label                  = "PrivateDNS"
-#   vcn_id                     = "${oci_core_virtual_network.VCN.id}"
-#   prohibit_public_ip_on_vnic = true
-#   route_table_id             = "${oci_core_route_table.PrivateSubnetRT.id}"
+   resource "oci_core_subnet" "PrivateSubnet" {
+  availability_domain        = "LPEH:US-ASHBURN-AD-1"
+  cidr_block                 = "10.0.1.0/24"
+  compartment_id             = "${var.compartment_ocid}"
+  display_name               = "PrivateSubnet"
+  dns_label                  = "PrivateDNS"
+  vcn_id                     = "${oci_core_virtual_network.VCN.id}"
+  prohibit_public_ip_on_vnic = true
+  route_table_id             = "${oci_core_route_table.PrivateSubnetRT.id}"
 
-#   security_list_ids = [ 
-#     "${oci_core_security_list.PrivateDB2SecurityList.id}" ,
-#   ]
-# }
+  security_list_ids = [ 
+    "${oci_core_security_list.PrivateDB2SecurityList.id}" ,
+  ]
+}
 
-#    //adding database instance
+   //adding database instance
    
-#    resource "oci_core_instance" "DBInstance" {
-#   availability_domain = "LPEH:US-ASHBURN-AD-1"
-#   compartment_id      = "${var.compartment_ocid}"
+   resource "oci_core_instance" "DBInstance" {
+  availability_domain = "LPEH:US-ASHBURN-AD-1"
+  compartment_id      = "${var.compartment_ocid}"
 
-#   source_details {
-#     source_id   = "ocid1.image.oc1.iad.aaaaaaaageeenzyuxgia726xur4ztaoxbxyjlxogdhreu3ngfj2gji3bayda"
-#     source_type = "image"
-#   }
+  source_details {
+    source_id   = "ocid1.image.oc1.iad.aaaaaaaageeenzyuxgia726xur4ztaoxbxyjlxogdhreu3ngfj2gji3bayda"
+    source_type = "image"
+  }
 
-#   shape = "VM.Standard.E2.2"
+  shape = "VM.Standard.E2.2"
 
-#   metadata {
-#     ssh_authorized_keys = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGP56kfnzmdyLahAjF3W2mQhxA24Si7E5So8ZvSL5tTdNRiowKhv3wOUIwKW8YsNBFi/S7UZyrpIEC27jK+oFfZlysbOWY4ovZsIQ7GZxTjNrmIq38GvU+qeDY3X2Hlb3vFPvRVHJlGVOO06MQCH4xWADTxrf7DE0OXozz2U8wOt6x6OyrFy6sYrxnBDCaLy5i4z/2gKx2yJXYLb8C2LT2NVwf1mgaxjWVPV6Z6TLBOVFhmzaRnQkl7N1QMQWSdW2NI2kqC0CV0mm3q0ZkiDo7J6njYzMdc5qNZdiSy4ElHOp78f9SfB85gGpnXPjJBYpz/ywUjgjYKvQ9TyggvQdB"
-#   }
+  metadata {
+    ssh_authorized_keys = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGP56kfnzmdyLahAjF3W2mQhxA24Si7E5So8ZvSL5tTdNRiowKhv3wOUIwKW8YsNBFi/S7UZyrpIEC27jK+oFfZlysbOWY4ovZsIQ7GZxTjNrmIq38GvU+qeDY3X2Hlb3vFPvRVHJlGVOO06MQCH4xWADTxrf7DE0OXozz2U8wOt6x6OyrFy6sYrxnBDCaLy5i4z/2gKx2yJXYLb8C2LT2NVwf1mgaxjWVPV6Z6TLBOVFhmzaRnQkl7N1QMQWSdW2NI2kqC0CV0mm3q0ZkiDo7J6njYzMdc5qNZdiSy4ElHOp78f9SfB85gGpnXPjJBYpz/ywUjgjYKvQ9TyggvQdB"
+  }
 
-#   display_name = "DBInstance"
+  display_name = "DBInstance"
 
-#   create_vnic_details {
-#     subnet_id        = "${oci_core_subnet.PrivateSubnet.id}"
-#     assign_public_ip = false
-#   }
-# }
+  create_vnic_details {
+    subnet_id        = "${oci_core_subnet.PrivateSubnet.id}"
+    assign_public_ip = false
+  }
+}
