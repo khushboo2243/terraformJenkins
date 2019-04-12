@@ -18,7 +18,7 @@ resource "oci_core_virtual_network" "VCN" {
   compartment_id = "${var.compartment_ocid}"
   display_name = "NewVCN"
 }
-# resource "oci_core_internet_gateway" "IGW" {
+ # resource "oci_core_internet_gateway" "IGW" {
 #  compartment_id = "${var.compartment_ocid}"
 #  display_name   = "IGW"
 #  enabled        = true
