@@ -3,12 +3,12 @@
 resource "oci_core_instance" "Instance" {
   availability_domain = "LPEH:US-ASHBURN-AD-1"
   compartment_id      = "${var.compartment_ocid}"
-    shape = "${var.InstanceShape}"
+    
     
     source_details
     {
         source_id   = "${var.InstanceImageOCID[var.region]}"
-    
+        source_type = "image"
     }
 
 
