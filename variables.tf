@@ -27,3 +27,7 @@ variable "InstanceImageOCID" {
                     eu-frankfurt-1 = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaandary2dpwhw42xgv2d3zsbax2hln4wgcrm2tulo3dg67mwkly6aq"
     }
 }
+
+variable "BootStrapFile" {
+    default = "./userdata/bootstrap"
+}
