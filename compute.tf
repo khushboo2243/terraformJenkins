@@ -3,7 +3,8 @@
 resource "oci_core_instance" "Instance" {
   availability_domain = "LPEH:US-ASHBURN-AD-1"
   compartment_id      = "${var.compartment_ocid}"
-    
+   shape = "VM.Standard.E2.1"
+
     
     source_details
     {
