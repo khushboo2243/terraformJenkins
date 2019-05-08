@@ -15,6 +15,7 @@ resource "oci_core_instance" "Instance" {
 
   metadata {
     ssh_authorized_keys = "${var.ssh_public_key}"
+     
   }
 
   display_name = "Web-App-Instance"
