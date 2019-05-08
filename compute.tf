@@ -1,7 +1,7 @@
 //adding compute instance to represent web app
 
 resource "oci_core_instance" "Instance" {
-  availability_domain = "LPEH:US-ASHBURN-AD-1"
+  availability_domain = "WSQk:US-ASHBURN-AD-1"
   compartment_id      = "${var.compartment_ocid}"
    shape = "VM.Standard.E2.1"
 
