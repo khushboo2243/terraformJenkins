@@ -7,6 +7,7 @@ private_key_path="/home/opc/.oci_kn/oci_api_key.pem"
 
 #fingerprint="a3:34:49:c9:10:24:71:8a:1e:e8:77:0d:4e:54:de:36"
 #private_key_path="/Users/khnigam/.oci_KN/oci_api_key.pem"
+
 region="us-ashburn-1"
 
 }
